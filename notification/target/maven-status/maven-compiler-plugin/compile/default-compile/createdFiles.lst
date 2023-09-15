@@ -1,0 +1,6 @@
+com\addy\app\repository\NotificationRepository.class
+com\addy\app\entity\Notification$NotificationBuilder.class
+com\addy\app\controller\NotificationController.class
+com\addy\app\service\NotificationService.class
+com\addy\app\entity\Notification.class
+com\addy\app\NotificationApplication.class

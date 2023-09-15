@@ -1,2 +1,4 @@
-module\FraudCheckResponse.class
+com\addy\app\notification\NotificationRequest.class
+com\addy\app\fraud\FraudCheckResponse.class
+com\addy\app\notification\NotificationClient.class
 com\addy\app\fraud\FraudClient.class
