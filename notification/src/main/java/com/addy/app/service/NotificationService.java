@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Service
 public record NotificationService(NotificationRepository repository) {
 
-    public void notificationRequest(NotificationRequest request) {
+    public void send(NotificationRequest request) {
         repository.save(Notification.builder().message(request.message())
                 .toCustomerId(request.toCustomerId())
                 .toCustomerEmail(request.toCustomerEmail())

@@ -1,5 +1,6 @@
 package com.addy.app.service;
 
+import com.addy.app.NotificationMessageProducer;
 import com.addy.app.entity.Customer;
 import com.addy.app.fraud.FraudClient;
 import com.addy.app.model.CustomerRegistrationRequest;
@@ -12,9 +13,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public record CustomerService(CustomerRepository repository,
-                              RestTemplate restTemplate,
                               FraudClient fraudClient,
-                              NotificationClient notificationClient
+                              NotificationClient notificationClient,
+                              NotificationMessageProducer notificationMessageProducer
 ) {
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -36,15 +37,16 @@ public record CustomerService(CustomerRepository repository,
             throw new IllegalStateException("fraudster");
         }
 
-        notificationClient.notificationRequest(
-                new NotificationRequest(customer.getId(),
-                        customer.getEmail(),
-                        "hello"
-                )
+        NotificationRequest notificationRequest = new NotificationRequest(customer.getId(),
+                customer.getEmail(),
+                "hello"
+        );
+        notificationMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
         );
 
-        //todo: check if email valid
-        //todo: check if email is not taken
 
     }
 }

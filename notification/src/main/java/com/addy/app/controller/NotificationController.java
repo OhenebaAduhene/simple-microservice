@@ -16,6 +16,6 @@ public record NotificationController(NotificationService service) {
     @PostMapping()
     public void notificationRequest(@RequestBody NotificationRequest notificationRequest){
         log.info("Sending out notification request {}", notificationRequest);
-        service.notificationRequest(notificationRequest);
+        service.send(notificationRequest);
     }
 }
