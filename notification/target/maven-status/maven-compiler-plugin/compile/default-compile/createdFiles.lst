@@ -1,6 +1,9 @@
 com\addy\app\repository\NotificationRepository.class
+com\addy\app\config\NotificationConfig.class
 com\addy\app\entity\Notification$NotificationBuilder.class
 com\addy\app\controller\NotificationController.class
+com\addy\app\NotificationApplication$Person.class
 com\addy\app\service\NotificationService.class
+com\addy\app\rabbitmq\NotificationConsumer.class
 com\addy\app\entity\Notification.class
 com\addy\app\NotificationApplication.class

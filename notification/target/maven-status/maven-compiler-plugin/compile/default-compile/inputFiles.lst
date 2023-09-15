@@ -3,3 +3,5 @@ C:\Users\USER\DEV\java-dev\addyservices\notification\src\main\java\com\addy\app\
 C:\Users\USER\DEV\java-dev\addyservices\notification\src\main\java\com\addy\app\NotificationApplication.java
 C:\Users\USER\DEV\java-dev\addyservices\notification\src\main\java\com\addy\app\repository\NotificationRepository.java
 C:\Users\USER\DEV\java-dev\addyservices\notification\src\main\java\com\addy\app\entity\Notification.java
+C:\Users\USER\DEV\java-dev\addyservices\notification\src\main\java\com\addy\app\rabbitmq\NotificationConsumer.java
+C:\Users\USER\DEV\java-dev\addyservices\notification\src\main\java\com\addy\app\config\NotificationConfig.java
