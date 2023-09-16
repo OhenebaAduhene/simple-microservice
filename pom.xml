@@ -28,6 +28,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <spring.boot.dependencies.version>3.1.2</spring.boot.dependencies.version>
     <spring-cloud.version>2022.0.4</spring-cloud.version>
+    <image>addynkoah/${project.artifactId}:${project.version}</image>
   </properties>
 
   <dependencyManagement>
@@ -70,10 +71,40 @@
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>3.1.2</version>
           <executions>
             <execution>
               <goals>
                 <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>com.google.cloud.tools</groupId>
+          <artifactId>jib-maven-plugin</artifactId>
+          <version>3.3.2</version>
+          <configuration>
+            <from>
+              <image>eclipse-temurin:1717@sha256:2b47a8ea946ce1e5365a1562414ed576e378b7b670cadff3fb98ebecf2890cdc</image>
+              <platforms>
+                <plaform>
+                  <architecture>amd64</architecture>
+                  <os>linux</os>
+                </plaform>
+              </platforms>
+            </from>
+            <to>
+              <tags>
+                <tag>latest</tag>
+              </tags>
+            </to>
+          </configuration>
+          <executions>
+            <execution>
+              <phase>package</phase>
+              <goals>
+                <goal>build</goal>
               </goals>
             </execution>
           </executions>
