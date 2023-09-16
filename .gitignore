@@ -1,1 +1,5 @@
 .idea/
+apigw/target/
+notification/target/
+customer/target/
+fraud/target/
