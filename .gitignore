@@ -3,3 +3,5 @@ apigw/target/
 notification/target/
 customer/target/
 fraud/target/
+client/target/
+servicemq/target/

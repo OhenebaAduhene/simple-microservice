@@ -3,13 +3,11 @@ server:
 spring:
   application:
     name: eureka-server
-management:
-  tracing:
-    sampling:
-      probability: 1.0
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
 eureka:
-  instance:
-    hostname: localhost
   client:
     fetch-registry: false
     register-with-eureka: false

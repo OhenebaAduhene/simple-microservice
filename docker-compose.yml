@@ -1,3 +1,4 @@
+version: '3.9'
 services:
   postgres:
     container_name: postgres
@@ -13,17 +14,6 @@ services:
     networks:
       - postgres
     restart: unless-stopped
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    ports:
-      - "9411:9411"
-  rabbitmq:
-    image: rabbitmq:3.9.11-management-alpine
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -38,9 +28,95 @@ services:
     networks:
       - postgres
     restart: unless-stopped
-
+  #  zipkin:
+  #    image: openzipkin/zipkin
+  #    container_name: zipkin
+  #    ports:
+  #      - "9411:9411"
+  rabbitmq:
+    image: rabbitmq:3.9.11-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - rabbitmq
+  eureka-server:
+    image: addynkoah/eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - spring
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+    command: --spring.profiles.active=docker
+  apigw:
+    image: addynkoah/apigw:latest
+    container_name: apigw
+    ports:
+      - "8083:8083"
+    networks:
+      - spring
+      - rabbitmq
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+    command: --spring.profiles.active=docker
+    depends_on:
+      - eureka-server
+  customer:
+    image: addynkoah/customer:latest
+    container_name: customer
+    networks:
+      - spring
+      - postgres
+      - rabbitmq
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+    command: --spring.profiles.active=docker
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - rabbitmq
+      - postgres
+  fraud:
+    image: addynkoah/fraud:latest
+    container_name: fraud
+    networks:
+      - spring
+      - postgres
+    ports:
+      - "8081:8081"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+    command: --spring.profiles.active=docker
+    depends_on:
+      - eureka-server
+      - postgres
+      - rabbitmq
+  notification:
+    image: addynkoah/notification:latest
+    container_name: notification
+    networks:
+      - spring
+      - postgres
+      - rabbitmq
+    ports:
+      - "8086:8086"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=docker"
+    command: --spring.profiles.active=docker
+    depends_on:
+      - eureka-server
+      - postgres
+      - rabbitmq
 networks:
   postgres:
+    driver: bridge
+  spring:
+    driver: bridge
+  rabbitmq:
     driver: bridge
 
 volumes:
