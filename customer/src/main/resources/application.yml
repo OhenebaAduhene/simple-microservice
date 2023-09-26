@@ -1,11 +1,11 @@
 server:
-  port: 8086
+  port: 8080
 spring:
   application:
-    name: notification
+    name: customer
   datasource:
     password: password
-    url: jdbc:postgresql://postgres:5432/notification
+    url: jdbc:postgresql://localhost:5432/customer
     username: addy
   jpa:
     hibernate:
@@ -16,7 +16,7 @@ spring:
         format_sql: true
     show-sql: true
   rabbitmq:
-    addresses: rabbitmq:5672
+    addresses: localhost:5672
 management:
   tracing:
     sampling:
@@ -24,13 +24,5 @@ management:
 eureka:
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/eureka
+      defaultZone: http://localhost:8761/eureka
     enabled: false
-
-rabbitmq:
-  exchanges:
-    internal: internal.exchange
-  queue:
-    notification: notification.queue
-  routing-keys:
-    internal-notification: internal.notification.routing-key

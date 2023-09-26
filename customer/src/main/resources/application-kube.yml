@@ -5,7 +5,7 @@ spring:
     name: customer
   datasource:
     password: password
-    url: jdbc:postgresql://localhost:5432/customer
+    url: jdbc:postgresql://postgres:5432/customer
     username: addy
   jpa:
     hibernate:
@@ -16,12 +16,13 @@ spring:
         format_sql: true
     show-sql: true
   rabbitmq:
-    addresses: localhost:5672
-management:
-  tracing:
-    sampling:
-      probability: 1.0
+    addresses: rabbitmq:5672
+#management:
+#  tracing:
+#    sampling:
+#      probability: 1.0
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://eureka-server:8761/eureka
+    enabled: false
